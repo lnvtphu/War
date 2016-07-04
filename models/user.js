@@ -12,7 +12,7 @@ var User = new Schema({
 var UserModel = mongoose.model('User', User);
 module.exports = {
       viewall: function(req, res){
-          var usermodel = UserModel.find({});
+          var usermodel = UserModel.find({'_id': '1'});
           usermodel.exec(function(err, st){
               console.log(st);
               res.json(st);
