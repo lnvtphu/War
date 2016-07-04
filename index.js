@@ -28,7 +28,8 @@ router.get('/listusers', user.viewall);
 router.put('/adduser', user.adduser);
 router.post('/updateuser', user.updateuser);
 router.delete('/deleteuser', user.deleteuser);
-router.post('/deletefriend', user.deletefriend);
+router.post('/deletefriend', user.updatefriend);
+router.post('/addfriend', user.updatefriend);
 
 app.use('/', router);
 

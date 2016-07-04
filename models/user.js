@@ -21,17 +21,17 @@ module.exports = {
       adduser: function(req, res){
           var idUser = req.body._id;
           if(!idUser){
-              res.status(404).json({Error: '_id null'});
+              res.status(400).json({Error: '_id null'});
               return;
           }
           User.count({_id: idUser}, function(err, count){
              if(err){
-                  res.status(404).json(err);
+                  res.status(500).json(err);
              } else if(count == 0){
                  var user = new User (req.body);
                  user.save(function(err){
                      console.log(err);
-                     res.status(200).json({Sucess: 'Create success'});
+                     res.status(201).json({Sucess: 'Create success'});
                });
              }else{
                  res.status(404).json({Error: 'User exist'});
@@ -42,9 +42,9 @@ module.exports = {
         var id = req.body._id;
         User.findOneAndRemove({_id:id}, function(err,data){
             if(err){
-                res.status(404).json(err);
+                res.status(500).json(err);
             }else if(!data){
-                res.status(404).json({Error: 'User with ID: ' + id + 'not exist on data'});
+                res.status(204).json({Error: 'User with ID: ' + id + 'not exist on data'});
             }else{
                 res.status(200).json({Success:'Delete success'});
                 }
@@ -56,7 +56,7 @@ module.exports = {
           var id = req.body._id;
 
           if(!id){
-              res.status(404).json({Error: 'Id null'});
+              res.status(400).json({Error: 'Id null'});
               return;
           }
           User.findOneAndUpdate(
@@ -70,18 +70,18 @@ module.exports = {
             },
               function(err, data){
                   if(err){
-                      res.status(404).json(err);
+                      res.status(500).json(err);
                   }else{
                       res.status(200).json({Success:'Update success'});
                   }
               }
           );
     },
-    deletefriend: function(req, res){
+    updatefriend: function(req, res){
         var id = req.body._id;
         var friendsArr = req.body.friends;
         if(!id){
-            res.status(404).json({Error: 'Id null'});
+            res.status(304).json({Error: 'Id null'});
             return;
         }
         User.findOneAndUpdate(
@@ -93,7 +93,7 @@ module.exports = {
           },
             function(err, data){
                 if(err){
-                    res.status(404).json(err);
+                    res.status(500).json(err);
                 }else{
                     res.status(200).json({Success:'Update success'});
                 }
